@@ -1,0 +1,13 @@
+.root {
+      -fx-background-color: rgba(8, 7, 21, 0.29);
+}
+
+Button {
+    -fx-font: 25px Tahoma;
+    -fx-background-color: rgba(253, 253, 254, 0.2);
+}
+
+Label {
+    -fx-font: 25px Tahoma;
+    -fx-background-color: rgba(243, 243, 243, 0.18);
+}

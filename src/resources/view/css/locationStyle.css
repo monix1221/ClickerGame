@@ -1,0 +1,35 @@
+.root {
+      -fx-background-color: rgb(70, 255, 219);
+}
+
+Button {
+    -fx-font: 25px Tahoma;
+    -fx-background-color: rgb(203, 117, 97);
+    -fx-stroke: #4ad90b;
+    -fx-stroke-width: 10;
+}
+
+Label {
+    -fx-font: 25px Tahoma;
+    -fx-stroke: #d951a9;
+    -fx-stroke-width: 2;
+    -fx-background-color: #4ed926;
+}
+
+.roundButton {
+    -fx-font: 15px Tahoma;
+    -fx-background-radius: 50em;
+    -fx-min-width: 70px;
+    -fx-min-height: 70px;
+    -fx-max-width: 70px;
+    -fx-max-height: 70px;
+
+    -fx-border-color: black;
+    -fx-border-style: dashed;
+    -fx-border-width: 3;
+    -fx-border-radius: 50em;
+}
+
+HBox {
+    -fx-border-color: black;
+}
