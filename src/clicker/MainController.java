@@ -22,7 +22,9 @@ public class MainController {
         AnchorPane root = (AnchorPane) FXMLLoader.load(getClass().getResource("../resources/view/locationView.fxml"));
         Scene scene = new Scene(root);
         stage.setScene(scene);
+        LocationController.setStage(stage);
+        System.out.println("FINISHED");
+        LocationController locationController = new LocationController();
+        locationController.firstLocationButtonOnClick();
     }
-
-
 }

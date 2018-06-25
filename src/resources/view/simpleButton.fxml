@@ -20,7 +20,9 @@
             mnemonicParsing="false"
             prefWidth="70.0"
             styleClass="roundButton"
-            text="Button">
+            text="Button"
+            onAction="#onButtonClicked"
+            fx:id="button">
         <effect>
             <Lighting
                     diffuseConstant="1.54"

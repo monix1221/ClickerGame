@@ -14,7 +14,7 @@
     </stylesheets>
 
     <Label
-            fx:id="labelABC"
+            fx:id="simpleLabel"
             alignment="CENTER_LEFT"
             prefHeight="70.0"
             prefWidth="80.0"
