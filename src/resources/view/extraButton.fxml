@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import javafx.scene.effect.Lighting?>
+<?import javafx.scene.effect.Shadow?>
+<?import java.net.URL?>
+<AnchorPane
+        prefHeight="86.0"
+        prefWidth="241.0"
+        xmlns="http://javafx.com/javafx/8.0.121"
+        xmlns:fx="http://javafx.com/fxml/1">
+    <stylesheets>
+        <URL value="@css/locationStyle.css" />
+    </stylesheets>
+
+    <Button contentDisplay="CENTER"
+            disable="true"
+            minHeight="70.0"
+            mnemonicParsing="false"
+            prefWidth="70.0"
+            styleClass="extraButton"
+            text="Button">
+        <effect>
+            <Lighting
+                    diffuseConstant="1.54"
+                    specularConstant="2.0"
+                    specularExponent="14.15"
+                    surfaceScale="1.62">
+                <bumpInput>
+                    <Shadow />
+                </bumpInput>
+            </Lighting>
+        </effect>
+    </Button>
+</AnchorPane>

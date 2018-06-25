@@ -1,19 +1,15 @@
 .root {
-      -fx-background-color: rgb(70, 255, 219);
+      -fx-background-color: rgba(70, 255, 219, 0.36);
 }
 
 Button {
-    -fx-font: 25px Tahoma;
-    -fx-background-color: rgb(203, 117, 97);
-    -fx-stroke: #4ad90b;
-    -fx-stroke-width: 10;
+    /*-fx-font: 25px Tahoma;*/
+   /* -fx-background-color: rgb(220, 40, 164);*/
 }
 
 Label {
-    -fx-font: 25px Tahoma;
-    -fx-stroke: #d951a9;
-    -fx-stroke-width: 2;
-    -fx-background-color: #4ed926;
+    /*-fx-font: 25px Tahoma;*/
+    /*-fx-background-color: #fdfdfe;*/
 }
 
 .roundButton {
@@ -24,12 +20,34 @@ Label {
     -fx-max-width: 70px;
     -fx-max-height: 70px;
 
-    -fx-border-color: black;
+    -fx-background-color: rgba(157, 157, 157, 0.56);
+
+    -fx-border-color: rgba(9, 9, 9, 0.95);
     -fx-border-style: dashed;
-    -fx-border-width: 3;
+    -fx-border-width: 2;
     -fx-border-radius: 50em;
 }
 
-HBox {
+.extraButton {
+    -fx-font: 15px Tahoma;
+    -fx-background-radius: 50em;
+    -fx-min-width: 70px;
+    -fx-min-height: 70px;
+    -fx-max-width: 70px;
+    -fx-max-height: 70px;
+
+    -fx-background-color: #fe415a;
+
     -fx-border-color: black;
+    -fx-border-style: dashed;
+    -fx-border-width: 2;
+    -fx-border-radius: 50em;
+}
+
+.simpleLabel {
+    -fx-background-color: #fedefe;
+}
+
+HBox {
+    /*-fx-border-color: black;*/
 }
