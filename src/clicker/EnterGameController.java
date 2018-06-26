@@ -4,12 +4,12 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.layout.AnchorPane;
+import javafx.scene.control.TabPane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 
-public class MainController {
+public class EnterGameController {
     @FXML
     private Button enterButton;
 
@@ -19,12 +19,8 @@ public class MainController {
     public void enterGame() throws IOException {
         System.out.println("Game has been entered");
         stage = (Stage) enterButton.getScene().getWindow();
-        AnchorPane root = (AnchorPane) FXMLLoader.load(getClass().getResource("../resources/view/locationView.fxml"));
+        TabPane root = (TabPane) FXMLLoader.load(getClass().getResource("../resources/view/tabPaneRootView.fxml"));
         Scene scene = new Scene(root);
         stage.setScene(scene);
-        LocationController.setStage(stage);
-        System.out.println("FINISHED");
-        LocationController locationController = new LocationController();
-        locationController.firstLocationButtonOnClick();
     }
 }

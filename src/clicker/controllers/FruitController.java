@@ -1,35 +1,22 @@
-package clicker;
+package clicker.controllers;
 
+import clicker.ExtraButton;
+import clicker.SimpleButton;
+import clicker.SimpleLabel;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
-import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class LocationController {
-
-    private static Stage stage;
-
-    private static FirstLocationController firstLocationController = FirstLocationController.getInstance();
-    private static SecondLocationController secondLocationController = SecondLocationController.getInstance();
-
-    @FXML
-    Button firstLocationButton;
-    @FXML
-    Button secondLoacationButton;
-    @FXML
-    Button thirdLocationButton;
-
+public class FruitController {
     @FXML
     private HBox firstRoom;
     @FXML
@@ -49,8 +36,9 @@ public class LocationController {
     public static List<Button> thirdRoomButtons = new ArrayList<>();
     public static List<Label> thirdRoomLabels = new ArrayList<>();
 
-    @FXML
-    private void initialize() {
+
+    protected void initialize() {
+        System.out.println("Initialize banana controller");
         List<HBox> rooms = new ArrayList<>();
         rooms.add(firstRoom);
         rooms.add(secondRoom);
@@ -115,7 +103,7 @@ public class LocationController {
     private void initSimpleButtons(List<HBox> rooms) {
         for (HBox room: rooms) {
             for (int i = 0; i < 5; i++) {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("../resources/view/simpleButton.fxml"));
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("../../resources/view/simpleButton.fxml"));
                 SimpleButton controller = new SimpleButton("131313");
                 loader.setController(controller);
                 createChildElement(loader, room);
@@ -125,7 +113,7 @@ public class LocationController {
 
     private void initExtraButtons(List<HBox> rooms) {
         for (HBox room: rooms) {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("../resources/view/extraButton.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("../../resources/view/extraButton.fxml"));
             ExtraButton controller = new ExtraButton();
             loader.setController(controller);
             createChildElement(loader, room);
@@ -134,7 +122,7 @@ public class LocationController {
 
     private void initSimpleLabel(List<HBox> rooms) {
         for (HBox room: rooms) {
-            FXMLLoader labelLoader = new FXMLLoader(getClass().getResource("../resources/view/simpleLabel.fxml"));
+            FXMLLoader labelLoader = new FXMLLoader(getClass().getResource("../../resources/view/simpleLabel.fxml"));
             SimpleLabel labelController = new SimpleLabel("abs");
             labelLoader.setController(labelController);
             createChildElement(labelLoader, room);
@@ -152,59 +140,24 @@ public class LocationController {
         }
     }
 
-    @FXML
-    public void firstLocationButtonOnClick() throws IOException {
-        System.out.println("Warsaw button has been clicked");
-        rewriteRoomToController(firstLocationController);
-        firstLocationController.populateData();
-        populateRoomWithControllersData(firstLocationController);
-        reloadView();
+
+    /*
+    protected Room room;
+
+    protected void populateData() {
+        setData(room.getFirstRoom().getRoomButtons(), room.getFirstRoom().getRoomLabels(), room.getFirstRoom().getRoomData());
+        setData(room.getSecondRoom().getRoomButtons(), room.getSecondRoom().getRoomLabels(), room.getSecondRoom().getRoomData());
+        setData(room.getThirdRoom().getRoomButtons(), room.getThirdRoom().getRoomLabels(), room.getThirdRoom().getRoomData());
     }
 
-    private void populateRoomWithControllersData(Controller controller) {
-        firstRoomButtons = controller.getRoom().getFirstRoom().getRoomButtons();
-        firstRoomLabels = controller.getRoom().getFirstRoom().getRoomLabels();
-        firstRoomData = controller.getRoom().getFirstRoom().getRoomData();
-
-        secondRoomButtons = controller.getRoom().getSecondRoom().getRoomButtons();
-        secondRoomLabels = controller.getRoom().getSecondRoom().getRoomLabels();
-        secondRoomData = controller.getRoom().getSecondRoom().getRoomData();
-
-        thirdRoomButtons = controller.getRoom().getThirdRoom().getRoomButtons();
-        thirdRoomLabels = controller.getRoom().getThirdRoom().getRoomLabels();
-        thirdRoomData = controller.getRoom().getThirdRoom().getRoomData();
+    private void setData(List<Button> buttons, List<Label> labels, String[] data) {
+        for (int i = 0; i < buttons.size() - 1; i++) {
+            buttons.get(i).setDisable(false);
+            buttons.get(i).setText(data[0]);
+        }
+        buttons.get(buttons.size()-1).setText(data[1]);
+        labels.get(0).setText(data[2]);
     }
+     */
 
-    private void rewriteRoomToController(Controller controller) {
-        controller.room.getFirstRoom().setRoomButtons(firstRoomButtons);
-        controller.room.getFirstRoom().setRoomLabels(firstRoomLabels);
-        controller.room.getSecondRoom().setRoomButtons(secondRoomButtons);
-        controller.room.getSecondRoom().setRoomLabels(secondRoomLabels);
-        controller.room.getThirdRoom().setRoomButtons(thirdRoomButtons);
-        controller.room.getThirdRoom().setRoomLabels(thirdRoomLabels);
-    }
-
-    @FXML
-    public void secondLocationButtonOnClick() throws IOException {
-        System.out.println("Moscow button has been clicked");
-        rewriteRoomToController(secondLocationController);
-        secondLocationController.populateData();
-        populateRoomWithControllersData(secondLocationController);
-        reloadView();
-    }
-
-    @FXML
-    public void thirdLocationButtonOnClick() throws IOException {
-        System.out.println("Tokyo button has been clicked");
-    }
-
-    public static void setStage(Stage stage) {
-        LocationController.stage = stage;
-    }
-
-    private void reloadView() throws IOException {
-        AnchorPane root = (AnchorPane) FXMLLoader.load(getClass().getResource("../resources/view/locationView.fxml"));
-        Scene scene = new Scene(root);
-        stage.setScene(scene);
-    }
 }

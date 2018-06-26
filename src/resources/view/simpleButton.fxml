@@ -15,7 +15,7 @@
     </stylesheets>
 
     <Button contentDisplay="CENTER"
-            disable="true"
+            disable="false"
             minHeight="70.0"
             mnemonicParsing="false"
             prefWidth="70.0"

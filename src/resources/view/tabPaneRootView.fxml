@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+
+<TabPane tabClosingPolicy="UNAVAILABLE"
+         xmlns="http://javafx.com/javafx/8.0.111"
+         xmlns:fx="http://javafx.com/fxml/1"
+         fx:id="tabPane"
+         fx:controller="clicker.controllers.TabMainController">
+    <tabs>
+        <Tab text="Banana"
+             fx:id="tabBanana">
+            <fx:include
+                    fx:id="xxx_banana_xxx"
+                    source="bananaView.fxml"/>
+        </Tab>
+        <Tab text="Cherry"
+             fx:id="tabCherry">
+            <fx:include
+                    fx:id="xxx_cherry_xxx"
+                    source="cherryView.fxml"/>
+        </Tab>
+    </tabs>
+</TabPane>
