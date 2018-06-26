@@ -35,6 +35,7 @@ Label {
     -fx-min-height: 70px;
     -fx-max-width: 70px;
     -fx-max-height: 70px;
+    -fx-text-fill: black;
 
     -fx-background-color: #fe415a;
 
@@ -45,7 +46,7 @@ Label {
 }
 
 .simpleLabel {
-    -fx-background-color: #fedefe;
+    -fx-background-color: rgba(254, 222, 254, 0.18);
 }
 
 HBox {

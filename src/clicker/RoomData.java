@@ -3,26 +3,25 @@ package clicker;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class RoomData {
-    private String[] roomData = new String[3];
-    private List<Button> roomButtons = new ArrayList<>();
-    private List<Label> roomLabels = new ArrayList<>();
+    private List<String> data;
+    private List<Button> roomButtons;
+    private List<Label> roomLabels;
 
-    public RoomData(String[] roomData, List<Button> roomButtons, List<Label> roomLabels) {
-        this.roomData = roomData;
+    public RoomData(List<String> data, List<Button> roomButtons, List<Label> roomLabels) {
+        this.data = data;
         this.roomButtons = roomButtons;
         this.roomLabels = roomLabels;
     }
 
-    public String[] getRoomData() {
-        return roomData;
+    public List<String> getData() {
+        return data;
     }
 
-    public void setRoomData(String[] roomData) {
-        this.roomData = roomData;
+    public void setData(List<String> data) {
+        this.data = data;
     }
 
     public List<Button> getRoomButtons() {

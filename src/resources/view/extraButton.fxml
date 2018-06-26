@@ -16,7 +16,6 @@
     </stylesheets>
 
     <Button contentDisplay="CENTER"
-            disable="true"
             minHeight="70.0"
             mnemonicParsing="false"
             prefWidth="70.0"
@@ -26,9 +25,9 @@
             fx:id="button">
         <effect>
             <Lighting
-                    diffuseConstant="1.54"
-                    specularConstant="2.0"
-                    specularExponent="14.15"
+                    diffuseConstant="20.54"
+                    specularConstant="20.0"
+                    specularExponent="80.15"
                     surfaceScale="1.62">
                 <bumpInput>
                     <Shadow />

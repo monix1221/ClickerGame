@@ -15,7 +15,6 @@
     </stylesheets>
 
     <Button contentDisplay="CENTER"
-            disable="false"
             minHeight="70.0"
             mnemonicParsing="false"
             prefWidth="70.0"
@@ -27,8 +26,8 @@
             <Lighting
                     diffuseConstant="1.54"
                     specularConstant="2.0"
-                    specularExponent="14.15"
-                    surfaceScale="1.62">
+                    specularExponent="55.15"
+                    surfaceScale="8.62">
                 <bumpInput>
                     <Shadow />
                 </bumpInput>

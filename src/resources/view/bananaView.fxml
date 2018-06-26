@@ -35,7 +35,8 @@
                         <VBox prefHeight="200.0" prefWidth="200.0">
                             <children>
                                 <Label alignment="CENTER" prefHeight="50.0" prefWidth="200.0" text="12:54:15" />
-                                <Button alignment="CENTER" minWidth="175.0" mnemonicParsing="false" text="BUY NEW ROOM">
+                                <Button alignment="CENTER" minWidth="175.0" mnemonicParsing="false" text="BUY NEW ROOM"
+                                        fx:id="buyRoomButton" onAction="#buyRoom">
                                     <VBox.margin>
                                         <Insets left="10.0" right="10.0" />
                                     </VBox.margin>
@@ -44,19 +45,19 @@
                         </VBox>
                     </children>
                 </HBox>
-                <HBox alignment="CENTER" prefHeight="73.0" prefWidth="600.0" spacing="15"  fx:id="firstRoom">
+                <HBox alignment="CENTER" prefHeight="73.0" prefWidth="600.0" spacing="15"  fx:id="firstRoomHBox">
                     <VBox.margin>
                         <Insets top="10.0" />
                         <Insets left="10.0" />
                     </VBox.margin>
                 </HBox>
-                <HBox alignment="CENTER" prefHeight="73.0" prefWidth="600.0" spacing="15"  fx:id="secondRoom">
+                <HBox alignment="CENTER" prefHeight="73.0" prefWidth="600.0" spacing="15"  fx:id="secondRoomHBox">
                     <VBox.margin>
                         <Insets top="10.0" />
                         <Insets left="10.0" />
                     </VBox.margin>
                 </HBox>
-                <HBox alignment="CENTER" prefHeight="73.0" prefWidth="600.0" spacing="15" fx:id="thirdRoom">
+                <HBox alignment="CENTER" prefHeight="73.0" prefWidth="600.0" spacing="15" fx:id="thirdRoomHBox">
                     <VBox.margin>
                         <Insets top="10.0" />
                         <Insets left="10.0" />

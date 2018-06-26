@@ -1,8 +1,6 @@
 package clicker.controllers;
 
-import clicker.ExtraButton;
-import clicker.SimpleButton;
-import clicker.SimpleLabel;
+import clicker.*;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -14,71 +12,156 @@ import javafx.scene.layout.Pane;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
-public class FruitController {
-    @FXML
-    private HBox firstRoom;
-    @FXML
-    private HBox secondRoom;
-    @FXML
-    private HBox thirdRoom;
+public class FruitController implements GameAction {
 
-    public static String[] firstRoomData = {"000 $", "000 $", "000 $/s"};
-    public static List<Button> firstRoomButtons = new ArrayList<>();
-    public static List<Label> firstRoomLabels = new ArrayList<>();
+    public String alertMessage = "All rooms are bought";
+    public static String ALERT_TITLE = "Uppppppps";
 
-    public static String[] secondRoomData = {"000 $", "000 $", "000 $/s"};
-    public static List<Button> secondRoomButtons = new ArrayList<>();
-    public static List<Label> secondRoomLabels = new ArrayList<>();
+    public FruitController fruitController;
 
-    public static String[] thirdRoomData = {"000 $", "000 $", "000 $/s"};
-    public static List<Button> thirdRoomButtons = new ArrayList<>();
-    public static List<Label> thirdRoomLabels = new ArrayList<>();
+    public Boolean canBuyNewRoom = true;
+
+    public Boolean isSecondRoomBought = false;
+    public Boolean isThirdRoomBought = false;
+
+    @FXML
+    protected HBox firstRoomHBox;
+    @FXML
+    private HBox secondRoomHBox;
+    @FXML
+    private HBox thirdRoomHBox;
+
+    public  RoomData firstRoomData;
+    public  RoomData secondRoomData;
+    public  RoomData thirdRoomData;
+
+    @FXML
+    public Button buyRoomButton;
+
+    @FXML
+    public void buyRoom() {
+        System.out.println("Buy room in some space");
+
+        // if money == ok
+        if(!isSecondRoomBought) {
+            System.out.println("buying second room");
+            isSecondRoomBought = true;
+            introduceNewRoom();
+        } else if (!isThirdRoomBought) {
+            System.out.println("buying third room");
+            isThirdRoomBought = true;
+            introduceNewRoom();
+            buyRoomButton.setText("CANT BUY MORE");
+            buyRoomButton.setOnAction(e -> AlertBox.display(ALERT_TITLE, alertMessage));
+        } else {
+            System.out.println("Cant buy more rooms");
+        }
+    }
+
+    protected void introduceNewRoom() {
+        if (isThirdRoomBought) {
+            for (Button b: thirdRoomData.getRoomButtons()) {
+                b.setDisable(false);
+            }
+        } else {
+            if (isSecondRoomBought) {
+                for (Button b : secondRoomData.getRoomButtons()) {
+                    b.setDisable(false);
+                }
+            }
+        }
+    }
+
+
+
+    public FruitController () {
+        fruitController = this;
+
+        List<String> firstRoomData = new ArrayList<>(
+                Arrays.asList("000 $", "000 $", "000 $/s"));
+        List<Button> firstRoomButtons = new ArrayList<>();
+        List<Label> firstRoomLabels = new ArrayList<>();
+
+        List<String> secondRoomData = new ArrayList<>(
+                Arrays.asList("000 $", "000 $", "000 $/s"));
+        List<Button> secondRoomButtons = new ArrayList<>();
+        List<Label> secondRoomLabels = new ArrayList<>();
+
+        List<String> thirdRoomData = new ArrayList<>(
+                Arrays.asList("000 $", "000 $", "000 $/s"));
+        List<Button> thirdRoomButtons = new ArrayList<>();
+        List<Label> thirdRoomLabels = new ArrayList<>();
+
+        fruitController.firstRoomData = new RoomData(firstRoomData, firstRoomButtons, firstRoomLabels);
+        fruitController.secondRoomData = new RoomData(secondRoomData, secondRoomButtons, secondRoomLabels);
+        fruitController.thirdRoomData = new RoomData(thirdRoomData, thirdRoomButtons, thirdRoomLabels);
+    }
 
 
     protected void initialize() {
-        System.out.println("Initialize banana controller");
+        System.out.println("Initialize fruit controller");
         List<HBox> rooms = new ArrayList<>();
-        rooms.add(firstRoom);
-        rooms.add(secondRoom);
-        rooms.add(thirdRoom);
+        rooms.add(firstRoomHBox);
+        rooms.add(secondRoomHBox);
+        rooms.add(thirdRoomHBox);
         initSimpleButtons(rooms);
         initExtraButtons(rooms);
         initSimpleLabel(rooms);
 
-        prepareData(firstRoom, firstRoomButtons, firstRoomLabels);
-        prepareData(secondRoom, secondRoomButtons, secondRoomLabels);
-        prepareData(thirdRoom, thirdRoomButtons, thirdRoomLabels);
+        prepareData(firstRoomHBox, firstRoomData);
+        prepareData(secondRoomHBox, secondRoomData);
+        prepareData(thirdRoomHBox, thirdRoomData);
 
-        setData(firstRoomButtons, firstRoomLabels, firstRoomData);
-        setData(secondRoomButtons, secondRoomLabels, secondRoomData);
-        setData(thirdRoomButtons, thirdRoomLabels, thirdRoomData);
+        setData(firstRoomData);
+        setData(secondRoomData);
+        setData(thirdRoomData);
 
-        showData(firstRoomButtons, firstRoomLabels);
-        showData(secondRoomButtons, secondRoomLabels);
-        showData(thirdRoomButtons, thirdRoomLabels);
+        showData(firstRoomData);
+        showData(secondRoomData);
+        showData(thirdRoomData);
+
+        disableButtonsOnGameBeginning();
     }
 
-    private void setData(List<Button> buttons, List<Label> labels, String[] data) {
-        for (int i = 0; i < buttons.size() - 1; i++) {
-            buttons.get(i).setDisable(false);
-            buttons.get(i).setText(data[0]);
+    private void disableButtonsOnGameBeginning() {
+        for(Button button: secondRoomData.getRoomButtons()) {
+            button.setDisable(true);
         }
-        buttons.get(buttons.size() - 1).setText(data[1]);
-        labels.get(0).setText(data[2]);
+        for(Button button: thirdRoomData.getRoomButtons()) {
+            button.setDisable(true);
+        }
     }
 
-    private void showData(List<Button> roomButtons, List<Label> roomLabels) {
+    private void setData(final RoomData roomData) {
+        List<String> data = roomData.getData();
+        List<Button> buttons = roomData.getRoomButtons();
+        List<Label> labels = roomData.getRoomLabels();
+
+        for (int i = 0; i < buttons.size() - 1; i++) {
+            //buttons.get(i).setDisable(false);
+            buttons.get(i).setText(data.get(0));
+        }
+        buttons.get(buttons.size() - 1).setText(data.get(1));
+        labels.get(0).setText(data.get(2));
+    }
+
+    private void showData(final RoomData roomData) {
+        List<Button> roomButtons = roomData.getRoomButtons();
+        List<Label> roomLabels = roomData.getRoomLabels();
         for (Button b: roomButtons) {
-            System.out.println("button id: " + b.getId());
+            //System.out.println("button id: " + b.getId());
         }
         for (Label lab: roomLabels) {
-            System.out.println("label id: " + lab.getId());
+            //System.out.println("label id: " + lab.getId());
         }
     }
 
-    private void prepareData(HBox room, List<Button> roomButtons, List<Label> roomLabels) {
+    private void prepareData(HBox room, RoomData roomData) {
+        List<Button> roomButtons = roomData.getRoomButtons();
+        List<Label> roomLabels = roomData.getRoomLabels();
         int id = 0;
         ObservableList<Node> children = room.getChildren();
         for (Node node: children) {
@@ -104,7 +187,7 @@ public class FruitController {
         for (HBox room: rooms) {
             for (int i = 0; i < 5; i++) {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("../../resources/view/simpleButton.fxml"));
-                SimpleButton controller = new SimpleButton("131313");
+                SimpleButton controller = new SimpleButton("131313", fruitController);
                 loader.setController(controller);
                 createChildElement(loader, room);
             }
@@ -114,7 +197,7 @@ public class FruitController {
     private void initExtraButtons(List<HBox> rooms) {
         for (HBox room: rooms) {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("../../resources/view/extraButton.fxml"));
-            ExtraButton controller = new ExtraButton();
+            ExtraButton controller = new ExtraButton("extra", fruitController);
             loader.setController(controller);
             createChildElement(loader, room);
         }
@@ -133,13 +216,21 @@ public class FruitController {
         Pane pane = null;
         try {
             pane = loader.load();
-            System.out.println("loaded item for room");
+            //System.out.println("loaded item for room");
             room.getChildren().add(pane);
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
+    @Override
+    public void onButtonClicked() {
+        checkCanShowExtraButton();
+    }
+
+    private void checkCanShowExtraButton() {
+
+    }
 
     /*
     protected Room room;
