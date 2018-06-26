@@ -11,6 +11,14 @@ import java.util.List;
 
 public class CherryController extends FruitController {
 
+    /*private static CherryController instance = null;
+    public static CherryController getInstance() {
+        if (instance == null) {
+            return new CherryController();
+        }
+        return instance;
+    }*/
+
     @FXML
     public void buyRoom() {
         System.out.println("Buy room in cherry space");

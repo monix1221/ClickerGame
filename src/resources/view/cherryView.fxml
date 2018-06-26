@@ -18,7 +18,7 @@
                         <VBox prefHeight="200.0" prefWidth="200.0">
                             <children>
                                 <Label alignment="CENTER" prefHeight="50.0" prefWidth="200.0" text="Incom:" />
-                                <Label alignment="CENTER" prefHeight="50.0" prefWidth="200.0" text="Total incom:" />
+                                <Label alignment="CENTER" prefHeight="50.0" prefWidth="200.0" text="Total incom:" fx:id="totalIncomeLabel"/>
                             </children>
                         </VBox>
                         <VBox prefHeight="200.0" prefWidth="200.0">

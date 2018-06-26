@@ -1,9 +1,18 @@
 package clicker.controllers;
 
+import clicker.MainIncome;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.beans.value.ObservableValue;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
+import javafx.util.Duration;
+
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class TabMainController {
 
@@ -37,5 +46,23 @@ public class TabMainController {
                 System.out.println("- another Tab -");
             }
         });
+
+        Runnable task = () -> startBaseIncome();
+        ExecutorService executorService = Executors.newCachedThreadPool();
+        executorService.execute(task);
+    }
+
+    private void startBaseIncome() {
+        Timeline wanderer = new Timeline(new KeyFrame(Duration.seconds(1), new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                MainIncome.baseIncom = MainIncome.baseIncom + 100;
+                System.out.println("Modyfing base incom: " + MainIncome.baseIncom);
+                yyy_banana_controller.updateTotalIncomeLabel();
+                yyy_cherry_controller.updateTotalIncomeLabel();
+            }
+        }));
+        wanderer.setCycleCount(Timeline.INDEFINITE);
+        wanderer.play();
     }
 }

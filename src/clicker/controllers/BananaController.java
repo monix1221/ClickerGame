@@ -1,5 +1,6 @@
 package clicker.controllers;
 
+import clicker.MainIncome;
 import clicker.RoomData;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -10,6 +11,15 @@ import java.util.Arrays;
 import java.util.List;
 
 public class BananaController extends FruitController {
+
+    /*private static BananaController instance = null;
+
+    public static BananaController getInstance() {
+        if (instance == null) {
+            return new BananaController();
+        }
+        return instance;
+    }*/
 
     public BananaController() {
         List<String> firstRoomData = new ArrayList<>(
@@ -30,7 +40,6 @@ public class BananaController extends FruitController {
         fruitController.firstRoomData = new RoomData(firstRoomData, firstRoomButtons, firstRoomLabels);
         fruitController.secondRoomData = new RoomData(secondRoomData, secondRoomButtons, secondRoomLabels);
         fruitController.thirdRoomData = new RoomData(thirdRoomData, thirdRoomButtons, thirdRoomLabels);
-
     }
 
     @Override
