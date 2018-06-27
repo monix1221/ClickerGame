@@ -2,6 +2,6 @@ package clicker;
 
 public interface GameAction {
 
-    void onButtonClicked();
+    void onButtonClicked(CustomButton button);
 
 }

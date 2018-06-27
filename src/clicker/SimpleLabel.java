@@ -12,7 +12,6 @@ public class SimpleLabel {
 
     public SimpleLabel (String text) {
         this.labelText = text;
-        System.out.println(text);
     }
 
     public String getLabelText() {

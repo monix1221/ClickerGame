@@ -4,7 +4,7 @@ import clicker.controllers.FruitController;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 
-public class ExtraButton {
+public class ExtraButton implements CustomButton {
     private String text;
     private FruitController fruitController;
 
@@ -18,9 +18,16 @@ public class ExtraButton {
 
     @FXML
     public void onButtonClicked() {
-        System.out.println("button has been clicked " + button.getId());
+        System.out.println("button has been clicked " + button.getId() + "it has text: " + button.getText());
         System.out.println(button.getParent().getParent());
-        button.setDisable(true);
-        fruitController.onButtonClicked();
+        fruitController.onButtonClicked(this);
+    }
+
+    public long getPrice() {
+        return Long.valueOf(this.button.getText().substring(0, this.button.getText().length() - 2));
+    }
+
+    public Button getButton() {
+        return this.button;
     }
 }

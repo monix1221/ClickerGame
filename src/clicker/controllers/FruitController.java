@@ -1,7 +1,15 @@
 package clicker.controllers;
 
 import clicker.*;
+import clicker.income.BananaIncome;
+import clicker.income.CherryIncome;
+import clicker.income.FruitIncome;
+import clicker.income.MainIncome;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -9,30 +17,35 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
+import javafx.util.Duration;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class FruitController implements GameAction {
 
     public String alertMessage = "All rooms are bought";
     public static String ALERT_TITLE = "Uppppppps";
+    public static String CURRENCY = " $";
 
     public FruitController fruitController;
 
-    public Boolean canBuyNewRoom = true;
+    private Boolean isSecondRoomBought = false;
+    private Boolean isThirdRoomBought = false;
 
-    public Boolean isSecondRoomBought = false;
-    public Boolean isThirdRoomBought = false;
+    protected static FruitIncome bananaIncome = new BananaIncome();
+    protected static FruitIncome cherryIncome = new CherryIncome();
 
     @FXML
     protected HBox firstRoomHBox;
     @FXML
-    private HBox secondRoomHBox;
+    protected HBox secondRoomHBox;
     @FXML
-    private HBox thirdRoomHBox;
+    protected HBox thirdRoomHBox;
 
     public  RoomData firstRoomData;
     public  RoomData secondRoomData;
@@ -77,8 +90,6 @@ public class FruitController implements GameAction {
             }
         }
     }
-
-
 
     public FruitController () {
         fruitController = this;
@@ -127,6 +138,10 @@ public class FruitController implements GameAction {
         showData(thirdRoomData);
 
         disableButtonsOnGameBeginning();
+
+        Runnable task = () -> updateTotalIncomeLabel();
+        ExecutorService executorService = Executors.newCachedThreadPool();
+        executorService.execute(task);
     }
 
     private void disableButtonsOnGameBeginning() {
@@ -227,17 +242,24 @@ public class FruitController implements GameAction {
     }
 
     @Override
-    public void onButtonClicked() {
-        checkCanShowExtraButton();
-    }
-
-    private void checkCanShowExtraButton() {
-
+    public void onButtonClicked(CustomButton button) {
+        System.out.println("BUTTON price: " + button.getPrice());
+        if (MainIncome.getBaseIncome() >= button.getPrice()) {
+            button.getButton().setDisable(true);
+            MainIncome.decreaseMainIncome(button.getPrice());
+        } else {
+            button.getButton().setDisable(false);
+        }
     }
 
     public void updateTotalIncomeLabel() {
-        System.out.println("updating label");
-        totalIncomeLabel.textProperty().bind(MainIncome.getBaseIncomeProperty());
+        Timeline wanderer = new Timeline(new KeyFrame(Duration.seconds(1), new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                totalIncomeLabel.setText(MainIncome.getBaseIncome() + CURRENCY);
+            }
+        }));
+        wanderer.setCycleCount(Timeline.INDEFINITE);
+        wanderer.play();
     }
-
 }

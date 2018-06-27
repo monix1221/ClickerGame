@@ -1,28 +1,31 @@
 package clicker.controllers;
 
+import clicker.CustomButton;
 import clicker.RoomData;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.util.Duration;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class CherryController extends FruitController {
 
-    /*private static CherryController instance = null;
-    public static CherryController getInstance() {
-        if (instance == null) {
-            return new CherryController();
-        }
-        return instance;
-    }*/
+    @FXML
+    public Label cherryIncomeLabel;
 
     @FXML
     public void buyRoom() {
         System.out.println("Buy room in cherry space");
-        this.canBuyNewRoom = false;
         super.buyRoom();
     }
 
@@ -47,18 +50,71 @@ public class CherryController extends FruitController {
         fruitController.thirdRoomData = new RoomData(thirdRoomData, thirdRoomButtons, thirdRoomLabels);
     }
 
-    public void handleTab2ButtonBar() {
-        System.out.println("handlig cherry");
-    }
-
-    @Override
-    public void onButtonClicked() {
-        System.out.println("BUTTON FROM CHERRRYYYYY");
-        super.onButtonClicked();
-    }
-
     public void initialize() {
         System.out.println("Initialize cherry controller");
         super.initialize();
+        Runnable task = () -> updateCherryIncomeLabel();
+        ExecutorService executorService = Executors.newCachedThreadPool();
+        executorService.execute(task);
+
+        ExecutorService executorService2 = Executors.newCachedThreadPool();
+        Runnable task2 = () -> increaseIncomeInTime();
+        executorService2.execute(task2);
+    }
+
+    @Override
+    public void onButtonClicked(CustomButton button) {
+        System.out.println("BUTTON FROM cherryyyyyyy");
+        super.onButtonClicked(button);
+        if (button.getButton().isDisable()) {
+            modifyCherryIncome(button);
+        }
+    }
+
+    private void modifyCherryIncome(CustomButton button) {
+        String parentId = button.getButton().getParent().getParent().getId();
+        String firstRoomId = firstRoomHBox.getId();
+        String secondRoomId = secondRoomHBox.getId();
+        String thirdRoomId = thirdRoomHBox.getId();
+        long value = 0L;
+        if (Objects.equals(parentId, firstRoomId)) {
+            System.out.println("Increasing cherry income for button clicked in first room");
+            String increasePerTime = firstRoomData.getData().get(2);
+            value = Long.valueOf(increasePerTime.substring(0, increasePerTime.length() - 4));
+        } else if (Objects.equals(parentId, secondRoomId)) {
+            String increasePerTime = secondRoomData.getData().get(2);
+            value = Long.valueOf(increasePerTime.substring(0, increasePerTime.length() - 4));
+        } else if (Objects.equals(parentId, thirdRoomId)) {
+            String increasePerTime = thirdRoomData.getData().get(2);
+            value = Long.valueOf(increasePerTime.substring(0, increasePerTime.length() - 4));
+        }
+        cherryIncome.addOnTimeIncreaseFruitIncome(value);
+    }
+
+    public void increaseIncomeInTime() {
+        Timeline wanderer = new Timeline(new KeyFrame(Duration.seconds(1), new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                cherryIncome.increaseCurrentFruitIncome();
+            }
+        }));
+        wanderer.setCycleCount(Timeline.INDEFINITE);
+        wanderer.play();
+    }
+
+    public void updateCherryIncomeLabel() {
+        Timeline wanderer = new Timeline(new KeyFrame(Duration.seconds(1), new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                cherryIncomeLabel.setText(cherryIncome.getCurrentFruitIncome() + CURRENCY);
+            }
+        }));
+        wanderer.setCycleCount(Timeline.INDEFINITE);
+        wanderer.play();
+    }
+
+
+    public void handleTab2ButtonBar() {
+        System.out.println("handling cherry");
     }
 }

@@ -17,14 +17,14 @@
                     <children>
                         <VBox prefHeight="200.0" prefWidth="200.0">
                             <children>
-                                <Label alignment="CENTER" prefHeight="50.0" prefWidth="200.0" text="Incom:" />
-                                <Label alignment="CENTER" prefHeight="50.0" prefWidth="200.0" text="Total incom:" fx:id="totalIncomeLabel"/>
+                                <Label alignment="CENTER" prefHeight="50.0" prefWidth="200.0" text="Cherry income:" />
+                                <Label alignment="CENTER" prefHeight="50.0" prefWidth="200.0" text="Total income:" />
                             </children>
                         </VBox>
                         <VBox prefHeight="200.0" prefWidth="200.0">
                             <children>
-                                <Label alignment="CENTER" prefHeight="50.0" prefWidth="200.0" text="125 256 $" />
-                                <Label alignment="CENTER" prefHeight="50.0" prefWidth="200.0" text="1 585 256 $" />
+                                <Label alignment="CENTER" prefHeight="50.0" prefWidth="200.0" text="125 256 $" fx:id="cherryIncomeLabel"/>
+                                <Label alignment="CENTER" prefHeight="50.0" prefWidth="200.0" text="0 $" fx:id="totalIncomeLabel" />
                             </children>
                         </VBox>
                         <VBox prefHeight="200.0" prefWidth="200.0">

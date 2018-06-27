@@ -1,4 +1,8 @@
 package clicker;
 
-public class CustomButton {
+import javafx.scene.control.Button;
+
+public interface CustomButton {
+    Button getButton();
+    long getPrice();
 }

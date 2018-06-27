@@ -1,6 +1,6 @@
 package clicker.controllers;
 
-import clicker.MainIncome;
+import clicker.income.MainIncome;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.beans.value.ObservableValue;
@@ -19,13 +19,11 @@ public class TabMainController {
     @FXML
     private TabPane tabPane;
 
-    // Inject tab content
     @FXML
     private Tab tabBanana;
     @FXML
     private Tab tabCherry;
 
-    // Inject tab controller
     @FXML
     private BananaController yyy_banana_controller = new BananaController();
     @FXML
@@ -36,11 +34,11 @@ public class TabMainController {
                                                                         Tab oldValue, Tab newValue) -> {
             if (newValue == tabCherry) {
                 System.out.println("IN CHERRY TAB");
-                System.out.println("yyy_cherry_controller=" + yyy_cherry_controller); //if =null => inject problem
+                System.out.println("yyy_cherry_controller=" + yyy_cherry_controller);
                 yyy_cherry_controller.handleTab2ButtonBar();
             } else if (newValue == tabBanana) {
                 System.out.println("IN BANANA TAB");
-                System.out.println("yyy_banana_controller=" + yyy_banana_controller); //if =null => inject problem
+                System.out.println("yyy_banana_controller=" + yyy_banana_controller);
                 yyy_banana_controller.handleTab1ButtonFoo();
             } else {
                 System.out.println("- another Tab -");
@@ -56,10 +54,13 @@ public class TabMainController {
         Timeline wanderer = new Timeline(new KeyFrame(Duration.seconds(1), new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                MainIncome.baseIncom = MainIncome.baseIncom + 100;
-                System.out.println("Modyfing base incom: " + MainIncome.baseIncom);
-                yyy_banana_controller.updateTotalIncomeLabel();
-                yyy_cherry_controller.updateTotalIncomeLabel();
+                System.out.println("Modifying base income. Current value " + MainIncome.getBaseIncome());
+                long normalIncomeInTime = MainIncome.getBaseIncome() + 100L;
+                long bananaIncome = yyy_banana_controller.bananaIncome.getCurrentFruitIncome();
+                System.out.println("xxxxxxbanana INCOME: " + bananaIncome);
+                long total = normalIncomeInTime + bananaIncome;
+                System.out.println("xxxxxxtotal INCOME: " + total);
+                MainIncome.setBaseIncome(total);
             }
         }));
         wanderer.setCycleCount(Timeline.INDEFINITE);
