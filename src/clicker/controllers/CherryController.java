@@ -64,7 +64,7 @@ public class CherryController extends FruitController {
 
     @Override
     public void onButtonClicked(CustomButton button) {
-        System.out.println("BUTTON FROM cherryyyyyyy");
+        System.out.println("Cherry button has been clicked");
         super.onButtonClicked(button);
         if (button.getButton().isDisable()) {
             modifyCherryIncome(button);
@@ -103,7 +103,7 @@ public class CherryController extends FruitController {
     }
 
     public void updateCherryIncomeLabel() {
-        Timeline wanderer = new Timeline(new KeyFrame(Duration.seconds(1), new EventHandler<ActionEvent>() {
+        Timeline wanderer = new Timeline(new KeyFrame(Duration.seconds(0.4), new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
                 cherryIncomeLabel.setText(cherryIncome.getCurrentFruitIncome() + CURRENCY);
@@ -114,7 +114,7 @@ public class CherryController extends FruitController {
     }
 
 
-    public void handleTab2ButtonBar() {
-        System.out.println("handling cherry");
+    public void handleCherryTab() {
+        System.out.println("Switched to cherry");
     }
 }

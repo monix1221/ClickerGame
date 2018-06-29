@@ -2,7 +2,6 @@ package clicker.income;
 
 public class FruitIncome {
     public long income = 0L;
-
     public long onTimeIncrease = 0L;
 
     public synchronized long getCurrentFruitIncome() {

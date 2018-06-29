@@ -7,11 +7,12 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 public class Main extends Application {
+    private static final String GAME_TITLE = "Clicker Game";
 
     @Override
     public void start(Stage primaryStage) throws Exception{
         Parent root = FXMLLoader.load(getClass().getResource("../resources/view/enterGameRootView.fxml"));
-        primaryStage.setTitle("Clicker Game");
+        primaryStage.setTitle(GAME_TITLE);
         primaryStage.setScene(new Scene(root, 600, 400));
         primaryStage.setResizable(true);
         primaryStage.show();

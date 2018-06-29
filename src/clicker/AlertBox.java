@@ -9,6 +9,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 public class AlertBox {
+    private static final String OK_BUTTON_TEXT = "OK";
 
     public static void display(String title, String message) {
         Stage window = new Stage();
@@ -20,7 +21,7 @@ public class AlertBox {
         Label label = new Label();
         label.setText(message);
 
-        Button closeButton = new Button("OK");
+        Button closeButton = new Button(OK_BUTTON_TEXT);
         closeButton.setOnAction(e -> window.close());
         VBox container = new VBox();
         container.getChildren().addAll(label, closeButton);

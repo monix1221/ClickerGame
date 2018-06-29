@@ -1,10 +1,7 @@
 package clicker.controllers;
 
 import clicker.*;
-import clicker.income.BananaIncome;
-import clicker.income.CherryIncome;
-import clicker.income.FruitIncome;
-import clicker.income.MainIncome;
+import clicker.income.*;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.collections.ObservableList;
@@ -31,6 +28,8 @@ public class FruitController implements GameAction {
     public String alertMessage = "All rooms are bought";
     public static String ALERT_TITLE = "Uppppppps";
     public static String CURRENCY = " $";
+    public static String REJECT_BUYING_MESSAGE = "CANT BUY MORE";
+    public static long NEW_ROOM_PRICE = 10000L;
 
     public FruitController fruitController;
 
@@ -39,6 +38,7 @@ public class FruitController implements GameAction {
 
     protected static FruitIncome bananaIncome = new BananaIncome();
     protected static FruitIncome cherryIncome = new CherryIncome();
+    protected static FruitIncome plumIncome = new PlumIncome();
 
     @FXML
     protected HBox firstRoomHBox;
@@ -60,17 +60,19 @@ public class FruitController implements GameAction {
     @FXML
     public void buyRoom() {
         System.out.println("Buy room in some space");
-
-        // if money == ok
-        if(!isSecondRoomBought) {
+        long currentMoney = MainIncome.getBaseIncome() + bananaIncome.getCurrentFruitIncome()
+                + cherryIncome.getCurrentFruitIncome();
+        if(!isSecondRoomBought && NEW_ROOM_PRICE <= currentMoney) {
             System.out.println("buying second room");
             isSecondRoomBought = true;
+            MainIncome.decreaseMainIncome(NEW_ROOM_PRICE);
             introduceNewRoom();
-        } else if (!isThirdRoomBought) {
+        } else if (!isThirdRoomBought && NEW_ROOM_PRICE <= currentMoney) {
             System.out.println("buying third room");
             isThirdRoomBought = true;
+            MainIncome.decreaseMainIncome(NEW_ROOM_PRICE);
             introduceNewRoom();
-            buyRoomButton.setText("CANT BUY MORE");
+            buyRoomButton.setText(REJECT_BUYING_MESSAGE);
             buyRoomButton.setOnAction(e -> AlertBox.display(ALERT_TITLE, alertMessage));
         } else {
             System.out.println("Cant buy more rooms");
@@ -157,9 +159,7 @@ public class FruitController implements GameAction {
         List<String> data = roomData.getData();
         List<Button> buttons = roomData.getRoomButtons();
         List<Label> labels = roomData.getRoomLabels();
-
         for (int i = 0; i < buttons.size() - 1; i++) {
-            //buttons.get(i).setDisable(false);
             buttons.get(i).setText(data.get(0));
         }
         buttons.get(buttons.size() - 1).setText(data.get(1));
@@ -205,7 +205,7 @@ public class FruitController implements GameAction {
         for (HBox room: rooms) {
             for (int i = 0; i < 5; i++) {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("../../resources/view/simpleButton.fxml"));
-                SimpleButton controller = new SimpleButton("131313", fruitController);
+                SimpleButton controller = new SimpleButton("SB", fruitController);
                 loader.setController(controller);
                 createChildElement(loader, room);
             }
@@ -215,7 +215,7 @@ public class FruitController implements GameAction {
     private void initExtraButtons(List<HBox> rooms) {
         for (HBox room: rooms) {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("../../resources/view/extraButton.fxml"));
-            ExtraButton controller = new ExtraButton("extra", fruitController);
+            ExtraButton controller = new ExtraButton("EB", fruitController);
             loader.setController(controller);
             createChildElement(loader, room);
         }
@@ -224,7 +224,7 @@ public class FruitController implements GameAction {
     private void initSimpleLabel(List<HBox> rooms) {
         for (HBox room: rooms) {
             FXMLLoader labelLoader = new FXMLLoader(getClass().getResource("../../resources/view/simpleLabel.fxml"));
-            SimpleLabel labelController = new SimpleLabel("abs");
+            SimpleLabel labelController = new SimpleLabel("SL");
             labelLoader.setController(labelController);
             createChildElement(labelLoader, room);
         }

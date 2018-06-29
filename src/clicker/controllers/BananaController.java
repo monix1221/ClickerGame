@@ -64,7 +64,7 @@ public class BananaController extends FruitController {
 
     @Override
     public void onButtonClicked(CustomButton button) {
-        System.out.println("BUTTON FROM BANANAAAAAAAAAA");
+        System.out.println("Banana button has been clicked");
         super.onButtonClicked(button);
         if (button.getButton().isDisable()) {
             modifyBananaIncome(button);
@@ -103,7 +103,7 @@ public class BananaController extends FruitController {
     }
 
     public void updateBananaIncomeLabel() {
-        Timeline wanderer = new Timeline(new KeyFrame(Duration.seconds(1), new EventHandler<ActionEvent>() {
+        Timeline wanderer = new Timeline(new KeyFrame(Duration.seconds(0.5), new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
                 bananaIncomeLabel.setText(bananaIncome.getCurrentFruitIncome() + CURRENCY);
@@ -113,8 +113,8 @@ public class BananaController extends FruitController {
         wanderer.play();
     }
 
-    public void handleTab1ButtonFoo() {
-        System.out.println("handling banana");
+    public void handleBananaTab() {
+        System.out.println("Switched to banana");
     }
 
 }

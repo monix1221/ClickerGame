@@ -1,0 +1,16 @@
+AnchorPane {
+    /*-fx-background-color: rgba(60, 255, 11, 0.62);*/
+}
+
+Button {
+     -fx-background-color: rgb(220, 22, 37);
+}
+
+Label {
+    -fx-background-color: #fe8a8e;
+}
+
+VBox {
+    -fx-border-color: #ff305a;
+    -fx-background-color: rgba(203, 0, 255, 0.29);
+}

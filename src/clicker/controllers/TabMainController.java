@@ -15,6 +15,8 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 public class TabMainController {
+    private static final double REFRESH_INTERVAL = 1;
+    private static final long MAIN_INCOME_IN_TIME_INCREASE = 20L;
 
     @FXML
     private TabPane tabPane;
@@ -23,23 +25,31 @@ public class TabMainController {
     private Tab tabBanana;
     @FXML
     private Tab tabCherry;
+    @FXML
+    private Tab tabPlum;
 
     @FXML
-    private BananaController yyy_banana_controller = new BananaController();
+    private BananaController bananaController = new BananaController();
     @FXML
-    private CherryController yyy_cherry_controller = new CherryController();
+    private CherryController cherryController = new CherryController();
+    @FXML
+    private PlumController plumController = new PlumController();
 
     public void initialize() {
         tabPane.getSelectionModel().selectedItemProperty().addListener((ObservableValue<? extends Tab> observable,
                                                                         Tab oldValue, Tab newValue) -> {
             if (newValue == tabCherry) {
                 System.out.println("IN CHERRY TAB");
-                System.out.println("yyy_cherry_controller=" + yyy_cherry_controller);
-                yyy_cherry_controller.handleTab2ButtonBar();
+                System.out.println("cherryController = " + cherryController);
+                cherryController.handleCherryTab();
             } else if (newValue == tabBanana) {
                 System.out.println("IN BANANA TAB");
-                System.out.println("yyy_banana_controller=" + yyy_banana_controller);
-                yyy_banana_controller.handleTab1ButtonFoo();
+                System.out.println("bananaController = " + bananaController);
+                bananaController.handleBananaTab();
+            } else if (newValue == tabPlum) {
+                System.out.println("IN PLUM TAB");
+                System.out.println("plumController = " + plumController);
+                plumController.handlePlumTab();
             } else {
                 System.out.println("- another Tab -");
             }
@@ -51,15 +61,23 @@ public class TabMainController {
     }
 
     private void startBaseIncome() {
-        Timeline wanderer = new Timeline(new KeyFrame(Duration.seconds(1), new EventHandler<ActionEvent>() {
+        Timeline wanderer = new Timeline(new KeyFrame(Duration.seconds(REFRESH_INTERVAL), new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
                 System.out.println("Modifying base income. Current value " + MainIncome.getBaseIncome());
-                long normalIncomeInTime = MainIncome.getBaseIncome() + 100L;
-                long bananaIncome = yyy_banana_controller.bananaIncome.getCurrentFruitIncome();
-                System.out.println("xxxxxxbanana INCOME: " + bananaIncome);
-                long total = normalIncomeInTime + bananaIncome;
-                System.out.println("xxxxxxtotal INCOME: " + total);
+                long normalIncomeInTime = MainIncome.getBaseIncome() + MAIN_INCOME_IN_TIME_INCREASE;
+
+                long bananaIncome = bananaController.bananaIncome.getCurrentFruitIncome();
+                System.out.println("xxxxxx banana INCOME: " + bananaIncome);
+
+                long cherryIncome = cherryController.cherryIncome.getCurrentFruitIncome();
+                System.out.println("xxxxxx cherry INCOME: " + cherryIncome);
+
+                long plumIncome = plumController.plumIncome.getCurrentFruitIncome();
+                System.out.println("xxxxxx plum INCOME: " + plumIncome);
+
+                long total = normalIncomeInTime + bananaIncome + cherryIncome + plumIncome;
+                System.out.println("xxxxxx total INCOME: " + total);
                 MainIncome.setBaseIncome(total);
             }
         }));
